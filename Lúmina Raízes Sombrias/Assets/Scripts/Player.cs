@@ -4,8 +4,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;        // Velocidade de movimento
-    public float jumpForce = 8f;    // For�a do pulo
-    private bool isGrounded;        // Verifica se o player est� no ch�o
+    public float jumpForce = 8f;    // Força do pulo
+    private bool isGrounded;        // Verifica se o player está no chão
     private Rigidbody2D rb;
 
     void Start()
@@ -22,11 +22,13 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float move = Input.GetAxis("Horizontal"); // A/D ou setas
-        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y);
+        rb.velocity = new Vector2(move * speed, rb.velocity.y); // corrigido aqui
 
-        // Inverte sprite conforme dire��o
-        if (move > 0) transform.localScale = new Vector3(1, 1, 1);
-        if (move < 0) transform.localScale = new Vector3(-1, 1, 1);
+        // Inverte sprite conforme direção
+        if (move > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (move < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
     }
 
     void Jump()
@@ -38,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Detecta colis�o com o ch�o
+    // Detecta colisão com o chão
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("chao"))
