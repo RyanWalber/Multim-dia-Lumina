@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         float move = Input.GetAxis("Horizontal"); // A/D ou setas
-        rb.velocity = new Vector2(move * speed, rb.velocity.y); // corrigido aqui
+        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y); // corrigido aqui
 
         // Inverte sprite conforme direção
         if (move > 0)
